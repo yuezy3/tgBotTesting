@@ -77,7 +77,7 @@ def fetchGroup(update,context):
                              text=answer)
 def addGroup(update,context):
     item = context.args
-    dbport.addItem({'intro':item[0],'addr':item[0]})
+    dbport.addItem({'intro':' '.join(item[:-1]),'addr':item[-1]})
     context.bot.send_message(chat_id=update.message.chat_id, 
                              text="已添加群组信息\n")
 from telegram.ext import CommandHandler
