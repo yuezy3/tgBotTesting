@@ -25,7 +25,7 @@ keyMarkups = [ ["/g ACG", "/g 软件","/g 科学上网"],
 import json
 import base64
 import os.path
-import dbport
+import dbport, botconfig
 from telegram.ext import BaseFilter
 class FilterButton(BaseFilter):
     def __init__(self, text_list):
@@ -37,8 +37,8 @@ class FilterButton(BaseFilter):
 
 #***************perpare usefull variables********************************
 from telegram.ext import Updater
-updater = Updater(token='435434808:SAxfHvzSAMIn35Zu_JOukxxjUf8heXMefqw',
-                  request_kwargs={'proxy_url':'https://127.0.0.1:1080/'},
+updater = Updater(token=botconfig.token,
+                  request_kwargs={'proxy_url':botconfig.proxy}if botconfig.proxy else {},
                   use_context=True)
 dispatcher = updater.dispatcher
 # make the messagae filter
@@ -127,14 +127,4 @@ dispatcher.add_handler(search_handler)
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++
 updater.start_polling()
 updater.idle()
-
-
-
-
-
-
-
-
-
-
 

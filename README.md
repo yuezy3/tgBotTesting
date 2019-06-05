@@ -7,7 +7,7 @@ python重写。
 # 安装方法
 安装前请确保系统中有python3.7+。 
 
-## 依赖
+## 安装依赖
 请先安装[python-telegram-bot](https://github.com/python-telegram-bot/python-telegram-bot)， 注意该库当前稳定版为11.1.0， 但请务必安装版本12+，使用命令：
 
     $pip install python-telegram-bot==12.0.0b1 --upgrade
@@ -17,18 +17,16 @@ python重写。
     $pip install tinydb
 
 
-## 安装
-使用 `git clone` 获取所有文件。打开 `bot.py` 找到以下行：
+## 配置
+使用 `git clone` 获取所有文件后。找到 `botConfig.cfg` ， 打开并填写你自己的 bot token, `token` 字段必须填写。 例如（当然下面这个 `token` 是捏造的，你需要写上你自己的合法 `token` ）：
 
-    request_kwargs={'proxy_url':'https://127.0.0.1:1080/'}
+    token = 435434808:SAxfHvzSAMIn35Zu_JOukxxjUf8heXMefqw
 
-修改 `https://127.0.0.1:1080/` 为你自己的代理地址，如果你没有使用ss之类的代理，请将本行全部注释或删除。
+如果你使用ss之类的代理，请将填写 `porxy` 字段： 
 
-找到以下行：
+    proxy = https://127.0.0.1:1234/
 
-    updater = Updater(token='435434808:SAxfHvzSAMIn35Zu_JOukxxjUf8heXMefqw',
-
-将 `435434808:SAxfHvzSAMIn35Zu_JOukxxjUf8heXMefqw` 替换为你自己的token即可。(该token必须替换为你自己的token)
+如果你没有使用代理，这一行就不要动。
 
 最后，在命令行下运行：
 

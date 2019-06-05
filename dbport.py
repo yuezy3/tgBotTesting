@@ -21,9 +21,9 @@ def search(s, usingRE = False):
 def addItem( item): 
     """item need to be object that have attr: 
        intro , addr , category(optianl)"""
-    category = item['category'] if item['category'] else '其他'
+    item.setdefault('category', '其他')
     resambleItem = {'intro':item['intro'],'addr':item['addr'],
-                    'category': category}
+                    'category': item['category']}
     db.insert(resambleItem)
 
 if __name__ == "__main__":
