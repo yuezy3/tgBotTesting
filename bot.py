@@ -107,24 +107,38 @@ start_inline_callback_handler = CallbackQueryHandler(start_inline_callback)
 dispatcher.add_handler(start_inline_callback_handler)
 
 #==============================================
+import plugSearch
 def plainSearch(update, context):
     searchString = update.message.text
     msg = "你输入的是 {} \n".format(searchString)
-    searchResult = dbport.search(searchString)
-    if len(searchResult) == 0 :#no result
-        msg = "你输入的是 {} \n".format(searchString) + \
-              "但是没有找到任何匹配项目" + \
-              "使用其他文字搜索或者使用 /help 命令查看帮助"
+    key = searchString.strip().split()[0]
+    sstirng = ''.join(searchString.strip().split()[1:])
+    if key in plugSearch.exportKey:
+        msg = msg + plugSearch.exportKey[key](sstirng)
     else:
-        for i in searchResult:
-            msg = msg + i['intro'] + '  ' + i['addr'] + '\n'
+        searchResult = dbport.search(searchString)
+        if len(searchResult) == 0 :#no result
+            msg = "你输入的是 {} \n".format(searchString) + \
+                  "但是没有找到任何匹配项目" + \
+                  "使用其他文字搜索或者使用 /help 命令查看帮助"
+        else:
+            for i in searchResult:
+                msg = msg + i['intro'] + '  ' + i['addr'] + '\n'
     context.bot.send_message(chat_id=update.message.chat_id, 
                              text=msg)
+def welcome(update, context):
+    msg = '欢迎: \n'
+    for member in update.message.new_chat_members:
+        msg = msg + member.username + '\n'
+    context.bot.send_message(chat_id=update.messagae.chat_id, text = msg)
 from telegram.ext import MessageHandler, Filters
 search_handler = MessageHandler(Filters.text, plainSearch)
+welcome_handler = MessageHandler(Filters.status_update.new_chat_members, welcome)
 dispatcher.add_handler(search_handler)
-
+dispatcher.add_handler(welcome_handler)
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++
 updater.start_polling()
 updater.idle()
+
+
 
